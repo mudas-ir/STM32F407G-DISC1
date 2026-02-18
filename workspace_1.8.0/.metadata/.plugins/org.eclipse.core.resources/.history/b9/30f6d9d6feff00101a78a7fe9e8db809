@@ -1,0 +1,86 @@
+/**
+ ******************************************************************************
+ * @file           : main.c
+ * @author         : Mudassir
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2026 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
+
+#include <stdint.h>
+
+#if !defined(__SOFT_FP__) && defined(__ARM_FP)
+  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+#endif
+
+#define BIT(n)		(1U << (n))
+
+#define RCC_AHB1ENR	(*((volatile uint32_t *)0x40023830))
+#define GPIOD_MODER (*((volatile uint32_t *)0x40020C00))
+#define GPIOD_ODR	(*((volatile uint32_t *)0x40020C14))
+
+#define SysTick_CTRL	(*((volatile uint32_t *)0xE000E010))
+#define SysTick_LOAD	(*((volatile uint32_t *)0xE000E014))
+#define SysTick_VAL		(*((volatile uint32_t *)0xE000E018))
+
+
+// Toggle BLUE LED
+// Using SysTick Timer
+// Polling Method
+
+int main(void)
+{
+    RCC_AHB1ENR |=  BIT(3);	//	Enable Clock to GPIOD
+
+    //	Set PD13 pin to output mode
+    GPIOD_MODER &=  ~(BIT(31)|BIT(30));
+    GPIOD_MODER |=  BIT(30);
+
+    SysTick_LOAD = 16000000-1;	//	Load Counter Value 16M/16M=1sec
+	SysTick_CTRL = (1<<2)|(1<<0);	//	Enable counter and select system clock as clock source
+	SysTick_VAL  = 0;	//	Initialize counter by clearing Current value register
+
+    while(1)
+    {
+    	if(SysTick_CTRL & BIT(16))
+    		GPIOD_ODR  ^= BIT(15);	// Toggle BLUE LED
+    }
+}
+
+
+//// Toggle BLUE LED
+//// Using SysTick Timer
+//// Handler Method
+//
+//int main(void)
+//{
+//    RCC_AHB1ENR |=  BIT(3);	//	Enable Clock to GPIOD
+//
+//    //	Set PD13 pin to output mode
+//    GPIOD_MODER &=  ~( BIT(31) | BIT(30) );
+//    GPIOD_MODER |=  BIT(30);
+//
+//    SysTick_LOAD = 16000000-1;	//	Load Counter Value 16M/16M=1sec
+//	SysTick_CTRL = (BIT(2)|BIT(1)|BIT(0));	//	Enable counter and select system clock as clock source
+//	SysTick_VAL  = 0;	//	Initialize counter by clearing Current value register
+//
+//    while(1)
+//    {
+////    	if(SysTick_CTRL & BIT(16))
+////    		GPIOD_ODR  ^= BIT(15);	// Toggle BLUE LED
+//    }
+//}
+//
+//void SysTick_Handler()
+//{
+//	GPIOD_ODR  ^= BIT(15);	// Toggle BLUE LED
+//}

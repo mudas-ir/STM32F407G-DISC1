@@ -1,0 +1,9 @@
+16:31:06 **** Clean-only build of configuration Debug for project 007_USART ****
+make -j4 clean 
+rm -rf ./Startup/startup_stm32f407vgtx.d ./Startup/startup_stm32f407vgtx.o
+rm -rf ./Src/main.d ./Src/main.o ./Src/syscalls.d ./Src/syscalls.o ./Src/sysmem.d ./Src/sysmem.o
+rm -rf 007_USART.bin 007_USART.elf 007_USART.list default.size.stdout
+ 
+
+16:31:06 Build Finished. 0 errors, 0 warnings. (took 282ms)
+
