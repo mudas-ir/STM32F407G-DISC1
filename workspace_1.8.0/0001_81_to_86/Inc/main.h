@@ -1,79 +1,43 @@
 /*
  * main.h
  *
- *  Created on: Jan 31, 2026
- *      Author: ME
+ *  Created on: Feb 14, 2026
+ *      Author: Mudassir
  */
 
 #ifndef MAIN_H_
 #define MAIN_H_
 
+//	MACROS
+#define BIT(n) (1U << (n))
 
-/*
-/////////////// Section 16 The below code is from 74 to 86  //////////////////////////////////
-#define MAX_TASKS 4
+//	Memory Mapping
+#define RAM_START				0x20000000U
+#define	RAM_SIZE				(192U * 1024U)
+#define RAM_END					((RAM_START + RAM_SIZE) - 1U)
 
-//	Stack Memory Calculation
-#define SIZE_TASK_STACK 1024U
-#define SIZE_SCHED_STACK 1024U
+#define	STACK_SIZE				1024U
 
-#define SRAM_START 0x20000000U
-#define SIZE_SRAM (128 * 1024)
-#define SRAM_END ((SRAM_START) + SIZE_SRAM)
+#define TASK1_STACK_START     	RAM_END
+#define TASK2_STACK_START      	(TASK1_STACK_START - STACK_SIZE)
+#define TASK3_STACK_START      	(TASK2_STACK_START - STACK_SIZE)
+#define TASK4_STACK_START 		(TASK3_STACK_START - STACK_SIZE)
+#define SCHEDULER_STACK_START	(TASK4_STACK_START - STACK_SIZE)
 
-#define T1_STACK_START		SRAM_END
-#define T2_STACK_START		(SRAM_END - (1 * SIZE_TASK_STACK))
-#define T3_STACK_START		(SRAM_END - (2 * SIZE_TASK_STACK))
-#define T4_STACK_START		(SRAM_END - (3 * SIZE_TASK_STACK))
-#define IDLE_STACK_START	(SRAM_END - (4 * SIZE_TASK_STACK))
-#define SCHED_STACK_START   (SRAM_END - (5 * SIZE_TASK_STACK))
+//	SysTick Register Mapping
+#define SYST_CSR				(*((volatile uint32_t *)0xE000E010))
+#define SYST_RVR				(*((volatile uint32_t *)0xE000E014))
+#define SYST_CVR				(*((volatile uint32_t *)0xE000E018))
+#define SYST_CALIB				(*((volatile uint32_t *)0xE000E01C))
 
-#define TICK_HZ 1000U
+#define CPU_CLOCK_HZ		 	16000000U
+#define TICK_HZ 				1000U
 
-#define HSI_CLOCK 16000000U
-#define SYSTICK_TIM_CLK HSI_CLOCK
+#define MAX_TASK 				4
 
-#define DUMMY_XPSR 0x01000000U
-/////////////// Section 16 The above code is from 74 to 86  //////////////////////////////////
-//*/
+#define DUMMY_XPSR				0x01000000U
+#define EXC_RETURN				0xFFFFFFFDU
 
-///*
-/////////////// Section 16 The below code is from 74 to 86 and 86 to 92  //////////////////////////////////
-
-#define MAX_TASKS   5
-
-// some stack memory calculations
-#define SIZE_TASK_STACK          1024U
-#define SIZE_SCHED_STACK         1024U
-
-#define SRAM_START               0x20000000U
-#define SIZE_SRAM                ( (128) * (1024))
-#define SRAM_END                 ((SRAM_START) + (SIZE_SRAM) )
-
-#define T1_STACK_START           SRAM_END
-#define T2_STACK_START           ( (SRAM_END) - (1 * SIZE_TASK_STACK) )
-#define T3_STACK_START           ( (SRAM_END) - (2 * SIZE_TASK_STACK) )
-#define T4_STACK_START           ( (SRAM_END) - (3 * SIZE_TASK_STACK) )
-#define IDLE_STACK_START         ( (SRAM_END) - (4 * SIZE_TASK_STACK) )
-#define SCHED_STACK_START        ( (SRAM_END) - (5 * SIZE_TASK_STACK) )
-
-#define TICK_HZ 1000U
-
-#define HSI_CLOCK         		16000000U
-#define SYSTICK_TIM_CLK   		HSI_CLOCK
-
-
-#define DUMMY_XPSR  0x01000000U
-
-#define TASK_READY_STATE  	0x00
-#define TASK_BLOCKED_STATE  0XFF
-
-#define INTERRUPT_DISABLE()  do{__asm volatile ("MOV R0,#0x1"); asm volatile("MSR PRIMASK,R0"); } while(0)
-
-#define INTERRUPT_ENABLE()  do{__asm volatile ("MOV R0,#0x0"); asm volatile("MSR PRIMASK,R0"); } while(0)
-
-
-/////////////// Section 16 The above code is from 74 to 86 and 86 to 92  //////////////////////////////////
-//*/
+#define SHCSR					(*((volatile uint32_t *)0xE000ED24))
 
 #endif /* MAIN_H_ */
