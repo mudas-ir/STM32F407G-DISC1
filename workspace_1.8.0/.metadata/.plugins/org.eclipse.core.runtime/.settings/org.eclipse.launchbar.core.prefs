@@ -1,13 +1,14 @@
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
-configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:LED_Blink,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:002_Stepper_Motor_Half_Wave_Drive,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:003_Stepper_Motor_Wave_Drive,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:001_SysTick_Timer,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:005_Switch_Interface,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:004_NVIC,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:0001_81_to_86,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:006_ADC,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:007_JoyStick
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:LED_Blink,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:002_Stepper_Motor_Half_Wave_Drive,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:003_Stepper_Motor_Wave_Drive,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:001_SysTick_Timer,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:005_Switch_Interface,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:0001_81_to_86,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:006_ADC,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:007_JoyStick,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:004_NVIC
 eclipse.preferences.version=1
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:0001_81_to_86/activeLaunchMode=run
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:0001_81_to_86/activeLaunchTarget=null\:---
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:001_SysTick_Timer/activeLaunchMode=run
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:001_SysTick_Timer/activeLaunchTarget=null\:---
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:003_Stepper_Motor_Wave_Drive/activeLaunchMode=run
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:004_NVIC/activeLaunchMode=run
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:006_ADC/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:007_JoyStick/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:LED_Blink/activeLaunchMode=run
