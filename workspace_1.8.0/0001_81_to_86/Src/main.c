@@ -40,6 +40,8 @@ __attribute__((naked)) void SchedulerStack_Init(uint32_t sched_top_of_stack);
 void TaskStack_Init(void);
 void EnableProcessorFaults(void);
 __attribute__((naked)) void Switch_SP_to_PSP(void);
+void save_psp_value(uint32_t current_psp_value);
+void update_next_task(void);
 
 int main()
 {
@@ -94,11 +96,8 @@ void SysTick_Init(uint32_t tick_hz)
 
 	SYST_CVR = 0;								//	Clear Current Value
 
+	SYST_CSR &=  ~(BIT(0) | BIT(1) | BIT(2));
 	SYST_CSR |=  (BIT(0) | BIT(1) | BIT(2));	//	Enable SysTick, Enable SysTick Exception, Use Processor Clock
-}
-
-void SysTick_Handler(void)
-{
 
 }
 
@@ -140,6 +139,62 @@ void EnableProcessorFaults(void)
 	SHCSR |= (BIT(16)|BIT(17)|BIT(18));	//	Enable MEM, BUS & USAGE Fault
 }
 
+uint32_t Get_PSP_Value(void)
+{
+	return psp_of_task[current_task];
+}
+
+void save_psp_value(uint32_t current_psp_value)
+{
+	psp_of_task[current_task] = current_psp_value;
+}
+
+void update_next_task(void)
+{
+	current_task++;
+	current_task %= MAX_TASK;
+}
+
+__attribute__((naked)) void Switch_SP_to_PSP(void)
+{
+    //1. initialize the PSP with TASK1 stack start address
+
+	//get the value of PSP of current_task
+	__asm volatile ("PUSH {LR}"); //preserve LR which connects back to main()
+	__asm volatile ("BL Get_PSP_Value");
+	__asm volatile ("MSR PSP,R0"); //initialize PSP
+	__asm volatile ("POP {LR}");  //pops back LR value
+
+	//2. change SP to PSP using CONTROL register
+	__asm volatile ("MOV R0,#0X02");
+	__asm volatile ("MSR CONTROL,R0");
+	__asm volatile ("BX LR");
+}
+__attribute__((naked)) void SysTick_Handler(void)
+{
+	//	Save the context of current task
+	//	1.	Get current running task's PSP value
+	__asm volatile("MRS R0,PSP");
+	//	2.	Using that PSP value store SF2 (R4 to R11)
+	__asm volatile("STMDB R0!,{R4-R11}");
+	__asm volatile("PUSH {LR}");
+	//	3.	Save the current value of PSP
+	__asm volatile("BL save_psp_value");
+
+
+	//	Retrieve the context of next task
+	//	1.	Decide next task to run
+	__asm volatile("BL update_next_task");
+	//	2.	Get its past PSP value
+	__asm volatile ("BL Get_PSP_Value");
+	//	3.	Using that PSP value retrieve SF2 (R4 to R11)
+	__asm volatile ("LDMIA R0!,{R4-R11}");
+	//	4.	Update PSP & exit
+	__asm volatile("MSR PSP,R0");
+	__asm volatile("POP {LR}");
+	__asm volatile("BX LR");
+}
+
 //	Fault Handlers
 void MemManage_Handler(void)
 {
@@ -157,25 +212,4 @@ void UsageFault_Handler(void)
 {
 	printf("ERROR : Usage_Fault Occurred\n");
 	while(1);
-}
-
-uint32_t Get_PSP_Value(void)
-{
-	return psp_of_task[current_task];
-}
-
-__attribute__((naked)) void Switch_SP_to_PSP(void)
-{
-    //1. initialize the PSP with TASK1 stack start address
-
-	//get the value of PSP of current_task
-	__asm volatile ("PUSH {LR}"); //preserve LR which connects back to main()
-	__asm volatile ("BL Get_PSP_Value");
-	__asm volatile ("MSR PSP,R0"); //initialize PSP
-	__asm volatile ("POP {LR}");  //pops back LR value
-
-	//2. change SP to PSP using CONTROL register
-	__asm volatile ("MOV R0,#0X02");
-	__asm volatile ("MSR CONTROL,R0");
-	__asm volatile ("BX LR");
 }

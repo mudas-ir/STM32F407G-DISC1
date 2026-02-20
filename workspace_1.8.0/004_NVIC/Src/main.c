@@ -16,6 +16,7 @@
  ******************************************************************************
  */
 
+/*
 #include <stdint.h>
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
@@ -98,4 +99,57 @@ void EXTI0_IRQHandler(void)
 	}
 	EXTI_PR |= BIT(0);   // Clear pending bit
 
+}
+//*/
+
+#include <stdint.h>
+
+#define BIT(n)		(1U << (n))
+
+#define RCC_AHB1ENR (*((volatile uint32_t *)0x40023830))
+
+#define GPIOA_MODER (*((volatile uint32_t *)0x40020000))
+#define GPIOA_PUPDR (*((volatile uint32_t *)0x4002000C))
+#define GPIOA_IDR 	(*((volatile uint32_t *)0x40020010))
+
+#define GPIOD_MODER (*((volatile uint32_t *)0x40020C00))
+#define GPIOD_ODR	(*((volatile uint32_t *)0x40020C14))
+
+#define SYSCFG 		(*((volatile uint32_t *)0x4001 3800))
+
+void delay(uint32_t n);
+
+int main()
+{
+	// Configure Clock
+	RCC_AHB1ENR |=	(BIT(0)|BIT(3));	//	Enable Clock to Port A & Port D.
+
+	// GPIO Configuration
+	GPIOA_MODER &= ~(BIT(0)|BIT(1));	//	Enable Input for PA0 (user Switch)
+	GPIOA_PUPDR &= ~(BIT(0)|BIT(1));
+	GPIOA_PUPDR |= 	 BIT(1);			//	Enable PullDown for PA0
+
+	GPIOD_MODER &= ~(BIT(27)|BIT(26));
+	GPIOD_MODER |= 	 BIT(26);			//	Enable Output for PD13 (orange LED)
+
+	while(1)
+	{
+		if(GPIOA_IDR & BIT(0))
+		{
+			GPIOD_ODR |= BIT(13);
+			delay(1000);
+			GPIOD_ODR &= ~BIT(13);
+		}
+		else
+		{
+			GPIOD_ODR &= ~BIT(13);
+		}
+	}
+	return 0;
+}
+
+void delay(uint32_t n)
+{
+	for(uint32_t i = 0;i < n ;i++)
+		for(uint32_t j = 0;j < 3129 ;j++);
 }

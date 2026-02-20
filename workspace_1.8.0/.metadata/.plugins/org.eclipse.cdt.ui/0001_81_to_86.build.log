@@ -1,10 +1,20 @@
-12:44:15 **** Incremental Build of configuration Debug for project 0001_81_to_86 ****
+11:37:59 **** Incremental Build of configuration Debug for project 0001_81_to_86 ****
 make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "0001_81_to_86.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mohammed.hussain\STM32CubeIDE\workspace_1.8.0\0001_81_to_86\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="0001_81_to_86.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 0001_81_to_86.elf
+ 
 arm-none-eabi-size   0001_81_to_86.elf 
+arm-none-eabi-objdump -h -S  0001_81_to_86.elf  > "0001_81_to_86.list"
+arm-none-eabi-objcopy  -O binary  0001_81_to_86.elf  "0001_81_to_86.bin"
    text	   data	    bss	    dec	    hex	filename
-    792	      8	   1568	   2368	    940	0001_81_to_86.elf
+   4432	    124	   1612	   6168	   1818	0001_81_to_86.elf
 Finished building: default.size.stdout
  
+Finished building: 0001_81_to_86.bin
+Finished building: 0001_81_to_86.list
+ 
+ 
 
-12:44:15 Build Finished. 0 errors, 0 warnings. (took 236ms)
+11:38:00 Build Finished. 0 errors, 0 warnings. (took 739ms)
 
