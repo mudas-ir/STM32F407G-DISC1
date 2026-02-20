@@ -107,6 +107,7 @@ void EXTI0_IRQHandler(void)
 #define BIT(n)		(1U << (n))
 
 #define RCC_AHB1ENR (*((volatile uint32_t *)0x40023830))
+#define RCC_APB2ENR (*((volatile uint32_t *)0x40023844))
 
 #define GPIOA_MODER (*((volatile uint32_t *)0x40020000))
 #define GPIOA_PUPDR (*((volatile uint32_t *)0x4002000C))
@@ -115,7 +116,13 @@ void EXTI0_IRQHandler(void)
 #define GPIOD_MODER (*((volatile uint32_t *)0x40020C00))
 #define GPIOD_ODR	(*((volatile uint32_t *)0x40020C14))
 
-#define SYSCFG 		(*((volatile uint32_t *)0x4001 3800))
+#define SYSCFG 		(*((volatile uint32_t *)0x40013808))
+
+#define EXTI_IMR 	(*((volatile uint32_t *)0x40013C00))
+#define EXTI_RTSR 	(*((volatile uint32_t *)0x40013C08))
+#define EXTI_PR 	(*((volatile uint32_t *)0x40013C14))
+
+#define NVIC_ISER 	(*((volatile uint32_t *)0xE000E100))
 
 void delay(uint32_t n);
 
@@ -132,20 +139,32 @@ int main()
 	GPIOD_MODER &= ~(BIT(27)|BIT(26));
 	GPIOD_MODER |= 	 BIT(26);			//	Enable Output for PD13 (orange LED)
 
+	//	External Interrupt Configuration
+	RCC_APB2ENR |= BIT(14);				//	Enable clock to SYSCFG
+	SYSCFG &= ~(0xF);					//	Connect PA0 to EXTI0.
+
+	EXTI_IMR |= BIT(0);
+	EXTI_RTSR |= BIT(0);
+
+	NVIC_ISER |= BIT(6);
+
 	while(1)
 	{
-		if(GPIOA_IDR & BIT(0))
-		{
-			GPIOD_ODR |= BIT(13);
-			delay(1000);
-			GPIOD_ODR &= ~BIT(13);
-		}
-		else
-		{
-			GPIOD_ODR &= ~BIT(13);
-		}
+
 	}
 	return 0;
+}
+
+void EXTI0_IRQHandler(void)
+{
+	EXTI_PR |= BIT(0);
+	for(uint8_t i = 0;i < 3;i++)
+	{
+		GPIOD_ODR |= BIT(13);
+		delay(500);
+		GPIOD_ODR &= ~BIT(13);
+		delay(500);
+	}
 }
 
 void delay(uint32_t n)

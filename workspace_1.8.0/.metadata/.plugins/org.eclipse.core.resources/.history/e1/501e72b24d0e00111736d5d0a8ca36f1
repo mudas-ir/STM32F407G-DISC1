@@ -1,0 +1,127 @@
+///**
+// ******************************************************************************
+// * @file           : main.c
+// * @author         : Mudassir
+// * @brief          : Main program body
+// ******************************************************************************
+// * @attention
+// *
+// * Copyright (c) 2026 STMicroelectronics.
+// * All rights reserved.
+// *
+// * This software is licensed under terms that can be found in the LICENSE file
+// * in the root directory of this software component.
+// * If no LICENSE file comes with this software, it is provided AS-IS.
+// *
+// ******************************************************************************
+// */
+//
+//#if !defined(__SOFT_FP__) && defined(__ARM_FP)
+//  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+//#endif
+//
+
+#include <stdint.h>
+#include <stdio.h>
+#include "main.h"
+
+// Task Handler Function Prototypes
+void task1_handler(void); 	//	This is task1
+void task2_handler(void); 	//	This is task2
+void task3_handler(void); 	//	This is task3
+void task4_handler(void); 	// 	This is task4
+
+void SysTick_Init(uint32_t tick_hz);
+
+__attribute__((naked)) void SchedulerStack_Init(uint32_t sched_top_of_stack);
+
+void EnableProcessorFaults(void);
+
+int main()
+{
+	EnableProcessorFaults();
+	SchedulerStack_Init(SCHED_STACK_START);
+	SysTick_Init(TICK_HZ);
+	return 0;
+}
+
+void task1_handler(void)
+{
+	while(1)
+	{
+		printf("This is task1\n");
+	}
+}
+
+void task2_handler(void)
+{
+	while(1)
+	{
+		printf("This is task2\n");
+	}
+}
+
+void task3_handler(void)
+{
+	while(1)
+	{
+		printf("This is task3\n");
+	}
+}
+
+void task4_handler(void)
+{
+	while(1)
+	{
+		printf("This is task4\n");
+	}
+}
+
+void SysTick_Init(uint32_t tick_hz)
+{
+	SYST_CSR &=  ~(BIT(0) | BIT(1) | BIT(2));
+
+	uint32_t countValue = HSI_CLOCK/tick_hz ;//	Calculate the Count Value
+
+	SYST_RVR = (countValue - 1);				//	Load the Count Value in SysTick Load Register
+
+	SYST_CVR = 0;								//	Clear Current Value
+
+	SYST_CSR |=  (BIT(0) | BIT(1) | BIT(2));	//	Enable SysTick, Enable SysTick Exception, Use Processor Clock
+}
+
+void SysTick_Handler(void)
+{
+
+}
+
+__attribute__((naked)) void SchedulerStack_Init(uint32_t sched_top_of_stack)
+{
+	__asm volatile("MSR MSP, %0" : : "r"(sched_top_of_stack) : );	//	Load the starting address of SCHEDULER_STACK to MSP
+	__asm volatile("BX LR");	//	Branch with Link
+}
+
+void EnableProcessorFaults(void)
+{
+	//	System Handler Control and Status Register
+	SHCSR |= (BIT(16)|BIT(17)|BIT(18));	//	Enable MEM, BUS & USAGE Fault
+}
+
+//	Fault Handlers
+void MemManage_Handler(void)
+{
+	printf("ERROR : MemManage_Fault Occurred\n");
+	while(1);
+}
+
+void BusFault_Handler(void)
+{
+	printf("ERROR : Bus_Fault Occurred\n");
+	while(1);
+}
+
+void UsageFault_Handler(void)
+{
+	printf("ERROR : Usage_Fault Occurred\n");
+	while(1);
+}

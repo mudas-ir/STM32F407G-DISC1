@@ -1,0 +1,50 @@
+/*
+ * main.h
+ *
+ *  Created on: Feb 14, 2026
+ *      Author: Mudassir
+ */
+
+#ifndef MAIN_H_
+#define MAIN_H_
+
+#define BIT(n)	(1U << (n))
+
+//	Stack Memory Calculation
+//#define STACK_SIZE 1024U
+//
+//#define RAM_START	0x20000000U
+//#define RAM_SIZE	(192U * 1024U)
+//#define RAM_END		((RAM_START + RAM_SIZE) - 1U)
+//
+//#define T1_STACK_START		RAM_END
+//#define T2_STACK_START		(T1_STACK_START - STACK_SIZE)
+//#define T3_STACK_START		(T2_STACK_START - STACK_SIZE)
+//#define T4_STACK_START		(T3_STACK_START - STACK_SIZE)
+//#define IDLE_STACK_START	(T4_STACK_START - STACK_SIZE)
+//#define SCHED_STACK_START   (IDLE_STACK_START - STACK_SIZE)
+#define SIZE_TASK_STACK          1024U
+#define SIZE_SCHED_STACK         1024U
+
+#define SRAM_START               0x20000000U
+#define SIZE_SRAM                ( (128) * (1024))
+#define SRAM_END                 ((SRAM_START) + (SIZE_SRAM) )
+
+#define T1_STACK_START           SRAM_END
+#define T2_STACK_START           ( (SRAM_END) - (1 * SIZE_TASK_STACK) )
+#define T3_STACK_START           ( (SRAM_END) - (2 * SIZE_TASK_STACK) )
+#define T4_STACK_START           ( (SRAM_END) - (3 * SIZE_TASK_STACK) )
+#define IDLE_STACK_START         ( (SRAM_END) - (4 * SIZE_TASK_STACK) )
+#define SCHED_STACK_START        ( (SRAM_END) - (5 * SIZE_TASK_STACK) )
+//	SysTick Register Mapping
+#define SYST_CSR				(*((volatile uint32_t *)0xE000E010))
+#define SYST_RVR				(*((volatile uint32_t *)0xE000E014))
+#define SYST_CVR				(*((volatile uint32_t *)0xE000E018))
+#define SYST_CALIB				(*((volatile uint32_t *)0xE000E01C))
+
+#define CPU_CLOCK_HZ		 	16000000U
+#define TICK_HZ 				1000U
+
+#define SHCSR					(*((volatile uint32_t *)0xE000ED24))
+
+#endif /* MAIN_H_ */

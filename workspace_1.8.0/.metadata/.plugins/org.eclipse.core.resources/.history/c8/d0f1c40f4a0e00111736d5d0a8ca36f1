@@ -1,0 +1,33 @@
+/*
+ * main.h
+ *
+ *  Created on: Feb 14, 2026
+ *      Author: Mudassir
+ */
+
+#ifndef MAIN_H_
+#define MAIN_H_
+
+//	Stack Memory Calculation
+#define STACK_SIZE 1024U
+
+#define RAM_START	0x20000000U
+#define RAM_SIZE	(192U * 1024U)
+#define RAM_END		((RAM_START + RAM_SIZE) - 1U)
+
+#define T1_STACK_START		RAM_END
+#define T2_STACK_START		(T1_STACK_START - STACK_SIZE)
+#define T3_STACK_START		(T2_STACK_START - STACK_SIZE)
+#define T4_STACK_START		(T3_STACK_START - STACK_SIZE)
+#define IDLE_STACK_START	(T4_STACK_START - STACK_SIZE)
+#define SCHED_STACK_START   (IDLE_STACK_START - STACK_SIZE)
+
+//	SysTick Register Mapping
+#define SYST_CSR				(*((volatile uint32_t *)0xE000E010))
+#define SYST_RVR				(*((volatile uint32_t *)0xE000E014))
+#define SYST_CVR				(*((volatile uint32_t *)0xE000E018))
+#define SYST_CALIB				(*((volatile uint32_t *)0xE000E01C))
+
+#define CPU_CLOCK_HZ		 	16000000U
+#define TICK_HZ 				1000U
+#endif /* MAIN_H_ */

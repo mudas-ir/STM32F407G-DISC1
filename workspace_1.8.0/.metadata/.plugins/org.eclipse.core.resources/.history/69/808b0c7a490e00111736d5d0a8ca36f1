@@ -1,0 +1,26 @@
+/*
+ * main.h
+ *
+ *  Created on: Feb 14, 2026
+ *      Author: Mudassir
+ */
+
+#ifndef MAIN_H_
+#define MAIN_H_
+
+//	Stack Memory Calculation
+#define SIZE_TASK_STACK 1024U
+#define SIZE_SCHED_STACK 1024U
+
+#define RAM_START	0x20000000U
+#define RAM_SIZE	(192U * 1024U)
+#define RAM_END		((RAM_START + RAM_SIZE) - 1U)
+
+#define T1_STACK_START		SRAM_END
+#define T2_STACK_START		(SRAM_END - (1 * SIZE_TASK_STACK))
+#define T3_STACK_START		(SRAM_END - (2 * SIZE_TASK_STACK))
+#define T4_STACK_START		(SRAM_END - (3 * SIZE_TASK_STACK))
+#define IDLE_STACK_START	(SRAM_END - (4 * SIZE_TASK_STACK))
+#define SCHED_STACK_START   (SRAM_END - (5 * SIZE_TASK_STACK))
+
+#endif /* MAIN_H_ */

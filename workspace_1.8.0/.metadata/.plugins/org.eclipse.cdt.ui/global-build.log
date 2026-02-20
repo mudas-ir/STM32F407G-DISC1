@@ -1,39 +1,4 @@
-11:19:58 **** Build of configuration Debug for project 0001_81_to_86 ****
-make -j4 all 
-arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
-arm-none-eabi-gcc "../Src/led.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/led.d" -MT"Src/led.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/led.o"
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
-arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
-arm-none-eabi-gcc -o "0001_81_to_86.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mohammed.hussain\STM32CubeIDE\workspace_1.8.0\0001_81_to_86\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="0001_81_to_86.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 0001_81_to_86.elf
- 
-arm-none-eabi-size   0001_81_to_86.elf 
-arm-none-eabi-objdump -h -S  0001_81_to_86.elf  > "0001_81_to_86.list"
-arm-none-eabi-objcopy  -O binary  0001_81_to_86.elf  "0001_81_to_86.bin"
-   text	   data	    bss	    dec	    hex	filename
-   4420	    124	   1612	   6156	   180c	0001_81_to_86.elf
-Finished building: default.size.stdout
- 
-Finished building: 0001_81_to_86.list
- 
-Finished building: 0001_81_to_86.bin
- 
-11:20:04 **** Incremental Build of configuration Debug for project 0001_81_to_86 ****
-make -j4 all 
-arm-none-eabi-size   0001_81_to_86.elf 
-   text	   data	    bss	    dec	    hex	filename
-   4420	    124	   1612	   6156	   180c	0001_81_to_86.elf
-Finished building: default.size.stdout
- 
-11:21:51 **** Incremental Build of configuration Debug for project 0001_81_to_86 ****
-make -j4 all 
-arm-none-eabi-size   0001_81_to_86.elf 
-   text	   data	    bss	    dec	    hex	filename
-   4420	    124	   1612	   6156	   180c	0001_81_to_86.elf
-Finished building: default.size.stdout
- 
-11:25:32 **** Incremental Build of configuration Debug for project 0001_81_to_86 ****
+16:47:13 **** Incremental Build of configuration Debug for project 0001_81_to_86 ****
 make -j4 all 
 arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
 arm-none-eabi-gcc -o "0001_81_to_86.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mohammed.hussain\STM32CubeIDE\workspace_1.8.0\0001_81_to_86\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="0001_81_to_86.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -43,44 +8,17 @@ arm-none-eabi-size   0001_81_to_86.elf
 arm-none-eabi-objdump -h -S  0001_81_to_86.elf  > "0001_81_to_86.list"
 arm-none-eabi-objcopy  -O binary  0001_81_to_86.elf  "0001_81_to_86.bin"
    text	   data	    bss	    dec	    hex	filename
-   4420	    124	   1612	   6156	   180c	0001_81_to_86.elf
+   4008	    108	   1596	   5712	   1650	0001_81_to_86.elf
 Finished building: default.size.stdout
  
+Finished building: 0001_81_to_86.bin
 Finished building: 0001_81_to_86.list
  
-Finished building: 0001_81_to_86.bin
  
-11:31:08 **** Incremental Build of configuration Debug for project 0001_81_to_86 ****
+16:47:19 **** Incremental Build of configuration Debug for project 0001_81_to_86 ****
 make -j4 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
-arm-none-eabi-gcc -o "0001_81_to_86.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mohammed.hussain\STM32CubeIDE\workspace_1.8.0\0001_81_to_86\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="0001_81_to_86.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 0001_81_to_86.elf
- 
 arm-none-eabi-size   0001_81_to_86.elf 
-arm-none-eabi-objdump -h -S  0001_81_to_86.elf  > "0001_81_to_86.list"
-arm-none-eabi-objcopy  -O binary  0001_81_to_86.elf  "0001_81_to_86.bin"
    text	   data	    bss	    dec	    hex	filename
-   4420	    124	   1612	   6156	   180c	0001_81_to_86.elf
+   4008	    108	   1596	   5712	   1650	0001_81_to_86.elf
 Finished building: default.size.stdout
- 
-Finished building: 0001_81_to_86.bin
- 
-Finished building: 0001_81_to_86.list
- 
-11:37:59 **** Incremental Build of configuration Debug for project 0001_81_to_86 ****
-make -j4 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
-arm-none-eabi-gcc -o "0001_81_to_86.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mohammed.hussain\STM32CubeIDE\workspace_1.8.0\0001_81_to_86\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="0001_81_to_86.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 0001_81_to_86.elf
- 
-arm-none-eabi-size   0001_81_to_86.elf 
-arm-none-eabi-objdump -h -S  0001_81_to_86.elf  > "0001_81_to_86.list"
-arm-none-eabi-objcopy  -O binary  0001_81_to_86.elf  "0001_81_to_86.bin"
-   text	   data	    bss	    dec	    hex	filename
-   4432	    124	   1612	   6168	   1818	0001_81_to_86.elf
-Finished building: default.size.stdout
- 
-Finished building: 0001_81_to_86.bin
-Finished building: 0001_81_to_86.list
- 
  
