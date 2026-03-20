@@ -1,0 +1,44 @@
+# ======================
+# STM32CubeIDE / Eclipse
+# ======================
+.metadata/
+*.log
+
+# ======================
+# Build folders
+# ======================
+Debug/
+Release/
+
+# ======================
+# Object files
+# ======================
+*.o
+*.d
+*.su
+
+# ======================
+# Binary outputs
+# ======================
+*.elf
+*.bin
+*.map
+
+# ======================
+# Eclipse project files
+# ======================
+.settings/
+.cproject
+.project
+*.launch
+
+# ======================
+# History (very important)
+# ======================
+.history/
+
+# ======================
+# OS files
+# ======================
+.DS_Store
+Thumbs.db
