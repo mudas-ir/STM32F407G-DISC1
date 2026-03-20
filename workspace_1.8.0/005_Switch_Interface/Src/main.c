@@ -41,7 +41,7 @@
 int main(void)
 {
 	// Configuring Clock to 168MHz
-	///*
+	/*
 
 	RCC_CR |= BIT(16);	// HSEON
 	while(!(RCC_CR & BIT(17)));	// Wait for HSERDY
